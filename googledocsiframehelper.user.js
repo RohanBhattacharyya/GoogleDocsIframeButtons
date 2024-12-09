@@ -4,13 +4,18 @@
 // @match       https://conejousd.instructure.com/courses/47286/*
 // @grant       none
 // @version     1.0
-// @author      -
+// @author      Rohan/OpenAI
 // @description 12/4/2024, 8:17:48 PM
 // ==/UserScript==
 
-
 (function() {
     'use strict';
+
+    // Load the Google Material Icons font if not already loaded
+    let link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
 
     function createButtons(iframe) {
         if (iframe.dataset.buttonsAdded) return;
@@ -42,18 +47,10 @@
         openButton.style.display = 'flex';
         openButton.style.alignItems = 'center';
 
-        // Create the Open icon SVG
-        let openIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        openIcon.setAttribute("height", "16");
-        openIcon.setAttribute("width", "16");
-        openIcon.setAttribute("viewBox", "0 0 24 24");
-        openIcon.style.fill = 'currentColor';
-        let openPath1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        openPath1.setAttribute("d", "M14 3v2h3.59L8 14.59 9.41 16 17 8.41V12h2V3z");
-        let openPath2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        openPath2.setAttribute("d", "M5 5v14h14v-7h-2v5H7V7h5V5H5z");
-        openIcon.appendChild(openPath1);
-        openIcon.appendChild(openPath2);
+        // Material icon for "Open in New"
+        let openIcon = document.createElement('span');
+        openIcon.className = 'material-icons';
+        openIcon.textContent = 'open_in_new';
 
         // Add the icon and text to the Open button
         openButton.appendChild(openIcon);
@@ -75,18 +72,10 @@
         copyButton.style.display = 'flex';
         copyButton.style.alignItems = 'center';
 
-        // Create the Copy icon SVG
-        let copyIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        copyIcon.setAttribute("height", "16");
-        copyIcon.setAttribute("width", "16");
-        copyIcon.setAttribute("viewBox", "0 0 24 24");
-        copyIcon.style.fill = 'currentColor';
-        let copyPath1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        copyPath1.setAttribute("d", "M16 1H4c-1.1 0-1.99.9-1.99 2L2 17h2V3h12V1z");
-        let copyPath2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        copyPath2.setAttribute("d", "M20 5H8c-1.1 0-2 .9-2 2v14h14V7c0-1.1-.9-2-2-2zm0 16H8V7h12v14z");
-        copyIcon.appendChild(copyPath1);
-        copyIcon.appendChild(copyPath2);
+        // Material icon for "Content Copy"
+        let copyIcon = document.createElement('span');
+        copyIcon.className = 'material-icons';
+        copyIcon.textContent = 'content_copy';
 
         // Add the icon and text to the Copy button
         copyButton.appendChild(copyIcon);
@@ -107,19 +96,18 @@
     }
 
     function processIframes() {
-    let iframes = document.getElementsByTagName('iframe');
-    console.log('Checking for iframes:', iframes.length);
-    for(let i = 0; i < iframes.length; i++) {
-        let iframe = iframes[i];
-        let src = iframe.src;
-        console.log(`Iframe ${i}: src=${src}`);
-        if(src && src.includes('docs.google.com') && src.includes('/preview')) {
-            console.log('Match found:', iframe);
-            createButtons(iframe);
+        let iframes = document.getElementsByTagName('iframe');
+        console.log('Checking for iframes:', iframes.length);
+        for(let i = 0; i < iframes.length; i++) {
+            let iframe = iframes[i];
+            let src = iframe.src;
+            console.log(`Iframe ${i}: src=${src}`);
+            if(src && src.includes('docs.google.com') && src.includes('/preview')) {
+                console.log('Match found:', iframe);
+                createButtons(iframe);
+            }
         }
     }
-}
-
 
     // Check every second for new iframes
     setInterval(processIframes, 1000);
