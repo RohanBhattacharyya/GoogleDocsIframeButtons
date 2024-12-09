@@ -5,8 +5,10 @@ Creates buttons for easy interaction with google docs previews. (Currently you c
 
 Made with o1-preview
 
-##Installation
-###Automatic
+## Installation
+
+### Automatic
+
 Get Tampermonkey or Violentmonkey
 
 Open googledocsiframehelper.user.js as raw
@@ -19,7 +21,7 @@ Mine is set to a canvas course:
 ```
   // @match       https://conejousd.instructure.com/courses/47286/*
 ```
-###Manual
+### Manual
 Copy the script in bookmarklet.js.
 
 Bookmark a page (any it doesn't matter)
