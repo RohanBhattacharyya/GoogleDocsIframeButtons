@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name        Google Docs Iframe Helper
 // @namespace   Violentmonkey Scripts
-// @match       https://conejousd.instructure.com/courses/47286/*
+// @match       https://conejousd.instructure.com/courses/*
 // @grant       none
-// @version     1.0
+// @version     1.1
 // @author      Rohan/OpenAI
-// @description 12/4/2024, 8:17:48 PM
+// @description Use it for embedded google docs iframes in Canvas.
 // ==/UserScript==
 
 (function() {
@@ -58,7 +58,7 @@
         openButton.appendChild(openText);
 
         openButton.onclick = function() {
-            window.open(iframe.src, '_blank');
+            window.open(iframe.src.replace('/preview', '/edit'), '_blank');
         };
 
         // Create the Copy button
